@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://bsanpy0l1prv5"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_pi5ek"]
+[ext_resource type="PackedScene" uid="uid://hjavu4hg5w68" path="res://character.tscn" id="2_nvb6b"]
+[ext_resource type="PackedScene" uid="uid://b07j0sdw1vwtd" path="res://reflection_object.tscn" id="3_oc0t6"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6bi6v"]
+distance = -600.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wj1mc"]
+size = Vector2(1074, 19)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hjxo6"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrcdv"]
+size = Vector2(580, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ske15"]
+radius = 5.0
+
+[node name="World" type="CanvasLayer"]
+script = ExtResource("1_pi5ek")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(-3, 0)
+shape = SubResource("WorldBoundaryShape2D_6bi6v")
+
+[node name="Character" parent="." instance=ExtResource("2_nvb6b")]
+position = Vector2(64, 514)
+
+[node name="ReflectionObject" parent="." instance=ExtResource("3_oc0t6")]
+position = Vector2(153, 375)
+disable_mode = 2
+mass = 10.0
+interactable = true
+
+[node name="FakeGround" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(73, 277)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FakeGround"]
+position = Vector2(486, -0.5)
+shape = SubResource("RectangleShape2D_wj1mc")
+
+[node name="Line2D" type="Line2D" parent="FakeGround"]
+points = PackedVector2Array(-3, -1, 808, -1)
+
+[node name="Seesaw" type="Node2D" parent="."]
+visible = false
+position = Vector2(415, 351)
+metadata/_edit_group_ = true
+
+[node name="Board" type="RigidBody2D" parent="Seesaw"]
+collision_layer = 4
+collision_mask = 12
+physics_material_override = SubResource("PhysicsMaterial_hjxo6")
+gravity_scale = -1.0
+constant_force = Vector2(0, -1980)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/Board"]
+shape = SubResource("RectangleShape2D_wrcdv")
+
+[node name="Polygon2D" type="Polygon2D" parent="Seesaw/Board"]
+position = Vector2(-278, 0)
+scale = Vector2(1.19835, 1)
+polygon = PackedVector2Array(-10, -10, -10, 10, 474, 10, 474, -10)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Seesaw"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Seesaw/StaticBody2D"]
+shape = SubResource("CircleShape2D_ske15")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Seesaw"]
+node_a = NodePath("../Board")
+node_b = NodePath("../StaticBody2D")
+
+[connection signal="input_event" from="ReflectionObject" to="Character" method="_on_interactable_object_input_event"]
+[connection signal="picked_up" from="ReflectionObject" to="Character" method="_on_interactable_object_picked_up"]

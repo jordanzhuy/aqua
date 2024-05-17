@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://b07j0sdw1vwtd"]
+
+[ext_resource type="Script" path="res://ReflectionObject.gd" id="1_yji0o"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bm8kq"]
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qphgg"]
+size = Vector2(13, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mke63"]
+size = Vector2(13, 13)
+
+[node name="ReflectionObject" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 12
+input_pickable = true
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_bm8kq")
+gravity_scale = -1.0
+script = ExtResource("1_yji0o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_qphgg")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(3, 3)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-3, -3, 10, -3, 10, 10, -3, 10)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(6.5, 6.5)
+shape = SubResource("RectangleShape2D_mke63")
+
+[node name="LabelPos" type="Node2D" parent="."]
+visible = false
+
+[node name="Label" type="Label" parent="LabelPos"]
+offset_left = -16.0
+offset_top = -18.0
+offset_right = 54.0
+offset_bottom = 5.0
+theme_override_font_sizes/font_size = 10
+text = "E: pickup"
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

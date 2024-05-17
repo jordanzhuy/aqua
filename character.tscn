@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://hjavu4hg5w68"]
+
+[ext_resource type="Script" path="res://Character.gd" id="1_qdmt8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_osvt1"]
+size = Vector2(23, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iqeum"]
+size = Vector2(24, 20)
+
+[node name="Character" type="CharacterBody2D"]
+collision_layer = 2
+safe_margin = 0.008
+script = ExtResource("1_qdmt8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_osvt1")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-7.62939e-06, -9.53674e-07)
+scale = Vector2(1.04545, 1)
+polygon = PackedVector2Array(-11.4783, -10, -11.4783, 10, 11.4783, 10, 11.4783, -10)
+
+[node name="PickedObject" type="CharacterBody2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="PickRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickRange"]
+shape = SubResource("RectangleShape2D_iqeum")
