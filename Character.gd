@@ -5,7 +5,6 @@ extends CharacterBody2D
 var GRAVITY = 2500
 
 var velocity_decrement = 0
-var double_jump = true
 var in_water = 0
 var pickup = null
 
@@ -13,8 +12,10 @@ var NORMAL_SPEED = 160
 var NORMAL_SPEED_DECREMENT = 100
 var NORMAL_AIR_SPEED = 120
 var NORMAL_AIR_SPEED_DECREMENT = 20
-var WATER_SPEED = 160
-var WATER_SPEED_DECREMENT = 100
+var WATER_SPEED = 140
+var WATER_SPEED_DECREMENT = 110
+
+@onready var sprite_2d = $AnimatedSprite2D
 	
 func alter_world():
 	in_water = 0 if in_water == 1 else 1
@@ -27,8 +28,6 @@ func _process(delta):
 				
 func _physics_process(delta):
 	
-	if is_on_floor():
-		double_jump = true
 		
 	# currently use space to shift between water physics and real physics
 	if Input.is_action_just_pressed("alter_world"):
@@ -40,6 +39,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		if in_water == 0:
 			velocity.y += GRAVITY * delta
+			
 		
 	if Input.is_action_just_pressed("pickup"):
 		# need to switch between objects when multiple one are near
@@ -70,6 +70,11 @@ func _physics_process(delta):
 			pickup.reparent(get_parent(), true)
 			pickup = null
 			
+	if velocity.x > 0:
+		sprite_2d.flip_h = true
+	elif velocity.x < 0:
+		sprite_2d.flip_h = false
+			
 			
 			
 			
@@ -79,16 +84,13 @@ func _physics_process(delta):
 		if !in_water:
 			if is_on_floor():
 				velocity.y = -600
-			elif double_jump:
-				velocity.y = -600
-				double_jump = false
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 		
 	var direction = Input.get_axis("move_left", "move_right")
 	var v_direction = Input.get_axis("jump", "move_down")
 
-	
+	# @TODO: Fine-tune for jumping out of water
 	if !in_water:
 		if is_on_floor():
 			if direction:
@@ -135,3 +137,8 @@ var picking = false
 
 func _on_pick_range_body_entered(body):
 	print("body entered")
+
+#@TODO: Maybe change this so state change only when water detection area in fully in water
+func _on_water_detection_water_state_changed(in_water : int):
+	self.in_water = in_water
+	print(in_water)

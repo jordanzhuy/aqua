@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsanpy0l1prv5"]
+[gd_scene load_steps=10 format=3 uid="uid://bsanpy0l1prv5"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_pi5ek"]
 [ext_resource type="PackedScene" uid="uid://hjavu4hg5w68" path="res://character.tscn" id="2_nvb6b"]
 [ext_resource type="PackedScene" uid="uid://b07j0sdw1vwtd" path="res://reflection_object.tscn" id="3_oc0t6"]
+[ext_resource type="SpriteFrames" uid="uid://4ghv1il2ogtm" path="res://player/player_frames.tres" id="3_ynbl7"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6bi6v"]
 distance = -600.0
@@ -32,14 +33,20 @@ shape = SubResource("WorldBoundaryShape2D_6bi6v")
 [node name="Character" parent="." instance=ExtResource("2_nvb6b")]
 position = Vector2(64, 514)
 
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Character"]
+sprite_frames = ExtResource("3_ynbl7")
+animation = &"idle_left"
+
 [node name="ReflectionObject" parent="." instance=ExtResource("3_oc0t6")]
 position = Vector2(153, 375)
 disable_mode = 2
 mass = 10.0
 interactable = true
 
+[node name="Sprite2D" type="Sprite2D" parent="ReflectionObject"]
+position = Vector2(-153, -375)
+
 [node name="FakeGround" type="StaticBody2D" parent="."]
-visible = false
 position = Vector2(73, 277)
 collision_layer = 4
 collision_mask = 4
@@ -52,7 +59,6 @@ shape = SubResource("RectangleShape2D_wj1mc")
 points = PackedVector2Array(-3, -1, 808, -1)
 
 [node name="Seesaw" type="Node2D" parent="."]
-visible = false
 position = Vector2(415, 351)
 metadata/_edit_group_ = true
 

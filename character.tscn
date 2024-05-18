@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://hjavu4hg5w68"]
+[gd_scene load_steps=6 format=3 uid="uid://hjavu4hg5w68"]
 
 [ext_resource type="Script" path="res://Character.gd" id="1_qdmt8"]
+[ext_resource type="SpriteFrames" uid="uid://4ghv1il2ogtm" path="res://player/player_frames.tres" id="2_na7e0"]
+[ext_resource type="Script" path="res://WaterDetection.gd" id="3_g277m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_osvt1"]
 size = Vector2(23, 20)
@@ -31,3 +33,20 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickRange"]
 shape = SubResource("RectangleShape2D_iqeum")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_na7e0")
+animation = &"jump_left"
+flip_h = true
+
+[node name="WaterDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_g277m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetection"]
+shape = SubResource("RectangleShape2D_osvt1")
+
+[connection signal="body_entered" from="WaterDetection" to="WaterDetection" method="_on_body_entered"]
+[connection signal="body_exited" from="WaterDetection" to="WaterDetection" method="_on_body_exited"]
+[connection signal="water_state_changed" from="WaterDetection" to="." method="_on_water_detection_water_state_changed"]
