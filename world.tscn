@@ -43,7 +43,7 @@ disable_mode = 2
 mass = 10.0
 interactable = true
 
-[node name="Sprite2D" type="Sprite2D" parent="ReflectionObject"]
+[node name="Sprite2D2" type="Sprite2D" parent="ReflectionObject"]
 position = Vector2(-153, -375)
 
 [node name="FakeGround" type="StaticBody2D" parent="."]

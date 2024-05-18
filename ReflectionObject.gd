@@ -5,9 +5,13 @@ const gravity = Vector2(100,0) #direction of gravity
 
 @export var interactable := false
 
+var image = null
+
 func _ready():
-	gravity_scale = -1
+	gravity_scale = 1
 	set_physics_process(true)
+	
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,11 +30,13 @@ func enable_physics():
 	$Area2D.monitoring = true
 	
 func _on_area_2d_body_entered(body):
-	$LabelPos.visible = true
+	if interactable:
+		$LabelPos.visible = true
 	
 
 func _on_area_2d_body_exited(body):
-	$LabelPos.visible = false
+	if interactable:
+		$LabelPos.visible = false
 	
 
 

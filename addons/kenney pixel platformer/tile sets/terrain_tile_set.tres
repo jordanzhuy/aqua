@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://b2eehst0nvoyj"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://b2eehst0nvoyj"]
 
 [ext_resource type="Texture2D" uid="uid://c0w1f031y6vej" path="res://addons/kenney pixel platformer/tilemap/tiles_packed.png" id="1_dsjwr"]
+[ext_resource type="PackedScene" uid="uid://cbtq6m7f0atw1" path="res://reflection_real_object.tscn" id="2_330lc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rntw7"]
 resource_name = "Main"
@@ -3589,11 +3590,14 @@ texture_region_size = Vector2i(18, 18)
 19:8/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 19:8/0/physics_layer_1/angular_velocity = 0.0
 
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_bswy1"]
+scenes/1/scene = ExtResource("2_330lc")
+
 [resource]
 tile_size = Vector2i(18, 18)
 physics_layer_0/collision_layer = 1
-physics_layer_1/collision_layer = 8
-physics_layer_1/collision_mask = 0
+physics_layer_1/collision_layer = 16
+physics_layer_1/collision_mask = 16
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "GroundGrass"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
@@ -3624,3 +3628,4 @@ terrain_set_0/terrain_12/color = Color(0.615686, 0.678431, 0.67451, 1)
 sources/1 = SubResource("TileSetAtlasSource_rntw7")
 sources/2 = SubResource("TileSetAtlasSource_ujlit")
 sources/3 = SubResource("TileSetAtlasSource_q7i4l")
+sources/4 = SubResource("TileSetScenesCollectionSource_bswy1")

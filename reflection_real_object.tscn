@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbtq6m7f0atw1"]
+
+[ext_resource type="Script" path="res://ReflectionRealObject.gd" id="1_fy5eg"]
+[ext_resource type="Texture2D" uid="uid://c0w1f031y6vej" path="res://addons/kenney pixel platformer/tilemap/tiles_packed.png" id="2_ponf4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tx58l"]
+size = Vector2(13, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nlf3o"]
+atlas = ExtResource("2_ponf4")
+region = Rect2(198, 126, 18, 18)
+
+[node name="ReflectionRealObject" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_fy5eg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tx58l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_nlf3o")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 800)
+collision_mask = 16
