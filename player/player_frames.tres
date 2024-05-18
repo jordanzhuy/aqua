@@ -1,0 +1,34 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://4ghv1il2ogtm"]
+
+[ext_resource type="Texture2D" uid="uid://c4p3cboxbys4j" path="res://addons/kenney pixel platformer/characters/character_0006.png" id="1_ytt7w"]
+[ext_resource type="Texture2D" uid="uid://6gwe3ok212im" path="res://addons/kenney pixel platformer/characters/character_0007.png" id="2_r6dst"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ytt7w")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_r6dst")
+}],
+"loop": true,
+"name": &"jump_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ytt7w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_r6dst")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 10.0
+}]
